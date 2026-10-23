@@ -75,6 +75,17 @@ def ensure_minio_bucket(s3_client, bucket_name):
         raise
 
 
+def find_dataset_root(location):
+    """Finds the directory containing data.yaml."""
+    if os.path.exists(os.path.join(location, "data.yaml")):
+        return location
+    for root, dirs, files in os.walk(location):
+        if "data.yaml" in files:
+            logger.info(f"Resolved dataset root to: {root}")
+            return root
+    return location
+
+
 def fetch_roboflow_dataset(download_dir):
     """Downloads the dataset from Roboflow in YOLOv11 format."""
     logger.info("Initializing Roboflow client...")
@@ -87,15 +98,22 @@ def fetch_roboflow_dataset(download_dir):
     version = project.version(ROBOFLOW_VERSION)
     
     os.makedirs(download_dir, exist_ok=True)
-    logger.info(f"Downloading dataset to: {download_dir}...")
-    dataset = version.download(DATASET_FORMAT, location=download_dir)
+    orig_cwd = os.getcwd()
+    try:
+        os.chdir(download_dir)
+        logger.info(f"Downloading dataset in: {download_dir}...")
+        dataset = version.download(DATASET_FORMAT)
+        resolved_location = find_dataset_root(dataset.location)
+    finally:
+        os.chdir(orig_cwd)
     
-    logger.info(f"Download complete! Dataset location: {dataset.location}")
-    return dataset.location
+    logger.info(f"Download complete! Dataset location: {resolved_location}")
+    return resolved_location
 
 
 def validate_dataset(dataset_dir):
     """Validates the downloaded dataset structure and counts images/classes."""
+    dataset_dir = find_dataset_root(dataset_dir)
     logger.info(f"Validating dataset structure at: {dataset_dir}...")
     data_yaml_path = os.path.join(dataset_dir, "data.yaml")
     if not os.path.exists(data_yaml_path):

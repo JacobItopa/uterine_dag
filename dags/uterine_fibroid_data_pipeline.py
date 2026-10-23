@@ -38,7 +38,7 @@ with DAG(
     default_args=default_args,
     description='Automated weekly Roboflow ultrasound data ingestion & MinIO archival pipeline (Runs Mondays)',
     # Every Monday at 09:00 UTC (Minute 0, Hour 9, Day *, Month *, Day-of-week 1)
-    schedule_interval='0 9 * * 1',
+    schedule='0 9 * * 1',
     catchup=False,
     tags=['medical-cv', 'uterine-fibroid', 'yolov11', 'roboflow', 'minio', 'mlops'],
 ) as dag:

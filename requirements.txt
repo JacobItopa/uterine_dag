@@ -1,0 +1,4 @@
+roboflow>=1.1.0
+boto3>=1.34.0
+pyyaml>=6.0.1
+apache-airflow>=2.8.0

@@ -29,6 +29,9 @@ SERVING_REPO_URL = Variable.get("SERVING_REPO_URL", default_var="https://github.
 CONTAINER_REGISTRY = "https://index.docker.io/v1/"
 CONTAINER_DETAILS = f"{DOCKERHUB_USER}/uterine-fibroid-detector:{IMAGE_TAG}"
 
+CLEAN_REPO_URL = SERVING_REPO_URL[:-4] if SERVING_REPO_URL.endswith(".git") else SERVING_REPO_URL
+ARCHIVE_URL = f"{CLEAN_REPO_URL}/archive/refs/heads/main.tar.gz"
+
 default_args = {
     'owner': 'ml-engineer',
     'depends_on_past': False,
@@ -60,7 +63,7 @@ with DAG(
             f'  git clone --depth 1 {SERVING_REPO_URL} /tmp/app; '
             f'else '
             f'  python3 -c "import urllib.request, tarfile; '
-            f'urllib.request.urlretrieve(\'{SERVING_REPO_URL.replace(\".git\", \"\")}/archive/refs/heads/main.tar.gz\', \'/tmp/repo.tar.gz\'); '
+            f'urllib.request.urlretrieve(\'{ARCHIVE_URL}\', \'/tmp/repo.tar.gz\'); '
             f'tarfile.open(\'/tmp/repo.tar.gz\').extractall(\'/tmp\')" && '
             f'  mv /tmp/*-main /tmp/app 2>/dev/null || mv /tmp/uterine_dag* /tmp/app; '
             f'fi && '
@@ -102,7 +105,7 @@ with DAG(
             f'  git clone --depth 1 {SERVING_REPO_URL} /tmp/app; '
             f'else '
             f'  python3 -c "import urllib.request, tarfile; '
-            f'urllib.request.urlretrieve(\'{SERVING_REPO_URL.replace(\".git\", \"\")}/archive/refs/heads/main.tar.gz\', \'/tmp/repo.tar.gz\'); '
+            f'urllib.request.urlretrieve(\'{ARCHIVE_URL}\', \'/tmp/repo.tar.gz\'); '
             f'tarfile.open(\'/tmp/repo.tar.gz\').extractall(\'/tmp\')" && '
             f'  mv /tmp/*-main /tmp/app 2>/dev/null || mv /tmp/uterine_dag* /tmp/app; '
             f'fi && '

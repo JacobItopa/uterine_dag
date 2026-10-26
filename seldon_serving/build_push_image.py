@@ -18,7 +18,7 @@ from botocore.client import Config
 # Configuration from Environment Variables
 CONTAINER_REGISTRY_USER = os.environ.get("CONTAINER_REGISTRY_USER", "y2jay1")
 CONTAINER_REGISTRY_PASSWORD = os.environ.get("CONTAINER_REGISTRY_PASSWORD", "#Jacob123")
-CONTAINER_DETAILS = os.environ.get("CONTAINER_DETAILS", "y2jay1/uterine-fibroid-detector:v2")
+CONTAINER_DETAILS = os.environ.get("CONTAINER_DETAILS", "y2jay1/uterine-fibroid-detector:v3")
 
 MINIO_ENDPOINT = os.environ.get("MLFLOW_S3_ENDPOINT_URL", "http://minio-ml-workshop:9000")
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", "minio")

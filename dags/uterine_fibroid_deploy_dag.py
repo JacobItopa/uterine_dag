@@ -22,7 +22,7 @@ DOCKERHUB_USER = Variable.get("DOCKERHUB_USER", default_var="y2jay1")
 DOCKERHUB_PASSWORD = Variable.get("DOCKERHUB_PASSWORD", default_var="#Jacob123")
 MODEL_NAME = Variable.get("MODEL_NAME", default_var="Uterine-Fibroid-YOLOv11")
 MODEL_VERSION = Variable.get("MODEL_VERSION", default_var="2")
-IMAGE_TAG = Variable.get("MODEL_IMAGE_TAG", default_var="v2")
+IMAGE_TAG = Variable.get("MODEL_IMAGE_TAG", default_var="v3")
 CLUSTER_DOMAIN_NAME = Variable.get("CLUSTER_DOMAIN_NAME", default_var="192.168.49.2.nip.io")
 SERVING_REPO_URL = Variable.get("SERVING_REPO_URL", default_var="https://github.com/JacobItopa/uterine_dag.git")
 

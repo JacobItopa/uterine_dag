@@ -2,6 +2,12 @@ FROM python:3.11-slim-bookworm
 
 WORKDIR /microservice
 
+# Install system libraries for OpenCV and headless rendering
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1 \
+    libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY base_requirements.txt /microservice/
 RUN pip install --no-cache-dir -r base_requirements.txt
 

@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    project_name: "{{ model_name }}"
+    deployment_version: "{{ experiment_id }}"
+  labels:
+    app: seldon
+  name: {{ svc_name }}
+  namespace: ml-workshop
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: {{ ingress_host }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: {{ svc_name }}
+            port:
+              number: 8000
+        path: /
+        pathType: ImplementationSpecific
+  - host: fibroid-model.{{ cluster_dns }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: {{ svc_name }}
+            port:
+              number: 8000
+        path: /
+        pathType: ImplementationSpecific

@@ -54,3 +54,4 @@ spec:
         version: v1
         app.kubernetes.io/managed-by: seldon-core
       replicas: 1
+

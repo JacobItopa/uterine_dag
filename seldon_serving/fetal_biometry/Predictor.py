@@ -99,3 +99,4 @@ class Predictor(object):
         logger.info(f"Fetal biometry inference completed in {inference_time_ms} ms. Detections: {len(detections_list)}")
 
         return np.array(detections_list, dtype=object)
+

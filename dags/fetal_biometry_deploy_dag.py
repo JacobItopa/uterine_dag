@@ -169,3 +169,4 @@ with DAG(
     )
 
     build_push_task >> deploy_task >> verify_task
+

@@ -67,7 +67,7 @@ with DAG(
             f'tarfile.open(\'/tmp/repo.tar.gz\').extractall(\'/tmp\')" && '
             f'  mv /tmp/*-main /tmp/app 2>/dev/null || mv /tmp/uterine_dag* /tmp/app; '
             f'fi && '
-            'cd /tmp/app/seldon_serving && '
+            'if [ -d /tmp/app/seldon_serving/uterine_fibroid ]; then cd /tmp/app/seldon_serving/uterine_fibroid; else cd /tmp/app/seldon_serving; fi && '
             'echo "=== Running build_push_image.py to download weights and push container ===" && '
             'python3 build_push_image.py'
         ],
@@ -109,7 +109,7 @@ with DAG(
             f'tarfile.open(\'/tmp/repo.tar.gz\').extractall(\'/tmp\')" && '
             f'  mv /tmp/*-main /tmp/app 2>/dev/null || mv /tmp/uterine_dag* /tmp/app; '
             f'fi && '
-            'cd /tmp/app/seldon_serving && '
+            'if [ -d /tmp/app/seldon_serving/uterine_fibroid ]; then cd /tmp/app/seldon_serving/uterine_fibroid; else cd /tmp/app/seldon_serving; fi && '
             'echo "=== Running deploy_model.py to render and apply SeldonDeployment ===" && '
             'python3 deploy_model.py'
         ],
